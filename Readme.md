@@ -11,12 +11,12 @@ in the defaut-searchengine, instead of browsing to "http://webserver01"
 Even if you write "webserserver01.internal.dev", chrome will do this.
 
 Chromesearchfix will help to prevent this, by trying to resolve "webserver01",
-if it can be resolved, it redirects you to "http://webserver01".
+if it can be resolved, it redirects you to "https://webserver01".
 
 If the "searchword" can't be resolved, you get redirected to a search-engine
 with a search for "searchword". Except if the "searchword" ends with a domain
 (e.g. dev), you want to protect, then you will always be redirected to
-http://$searchword (e.g. http://webserver01.internal.dev)
+https://$searchword (e.g. https://webserver01.internal.dev)
 
 # Usage
 
@@ -36,7 +36,7 @@ The config-options can be set in the URL:
 
 #### protect
 
-protects the domains, you want to protect as part of a regex, default: protect=lan
+the default_scheme you want to use, separated by |. default=dev
 
 Example:
 
@@ -53,11 +53,11 @@ Example:
 
 #### default_scheme
 
-the default_scheme you want to use, separated by |. default=dev
+the default_scheme you want to use, default=https
 
 Example:
 
-    http://localhost:10080/search?q=%s&default_scheme=qa|dev|int
+    http://localhost:10080/search?q=%s&default_scheme=http
 
 #### resolv
 

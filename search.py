@@ -7,20 +7,27 @@ from re import match
 
 app = Flask(__name__)
 
+options = {
+    'protect'           :   'dev',
+    'engine'            :   'https://duckduckgo.com/?q=%s',
+    'default_scheme'    :   'https',
+    'resolv'            :   'true'
+}
+
 def str2bool(value):
     return value.lower() in ( "true", "1", "yes")
 
 @app.route("/")
 def index():
-    return "nothing to see here!"
+    return "Serverside-config: %s" % (str(options))
 
 @app.route('/search', methods=['GET'])
 def search():
     searchword      = request.args.get('q', '')
-    protect         = request.args.get('protect', 'dev')
-    engine          = request.args.get('engine', 'https://duckduckgo.com/?q=%s')
-    default_scheme  = request.args.get('default_scheme', 'http')
-    _resolv        = request.args.get('resolv', 'true')
+    protect         = request.args.get('protect', options['protect'])
+    engine          = request.args.get('engine', options['engine'])
+    default_scheme  = request.args.get('default_scheme', options['default_scheme'])
+    _resolv         = request.args.get('resolv', options['resolv'])
 
     resolv = str2bool(_resolv)
     _match  = '.*\.(%s)(\.)?$' % (protect,)

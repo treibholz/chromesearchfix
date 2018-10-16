@@ -17,12 +17,12 @@ def index():
 @app.route('/search', methods=['GET'])
 def search():
     searchword      = request.args.get('q', '')
-    protect         = request.args.get('protect', 'lan')
+    protect         = request.args.get('protect', 'dev')
     engine          = request.args.get('engine', 'https://duckduckgo.com/?q=%s')
     default_scheme  = request.args.get('default_scheme', 'http')
-    _resolve        = request.args.get('resolve', 'false')
+    _resolv        = request.args.get('resolv', 'true')
 
-    resolve = str2bool(_resolve)
+    resolv = str2bool(_resolv)
     _match  = '.*\.(%s)(\.)?$' % (protect,)
 
     o = urlparse(searchword)
@@ -30,12 +30,12 @@ def search():
         o = urlparse('%s://%s' % (default_scheme, searchword,) )
 
     try:
-        if resolve:
+        if resolv:
             dns_result = gethostbyname(o.hostname)
             target_url = o.geturl()
-            print("I can resolve %s: %s!" % (o.hostname, dns_result,))
+            print("I can resolv %s: %s!" % (o.hostname, dns_result,))
         else:
-            raise ValueError('resolve is set to False')
+            raise ValueError('resolv is set to False')
     except:
         if match(_match, o.hostname):
             print(_match)

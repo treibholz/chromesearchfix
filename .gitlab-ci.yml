@@ -1,0 +1,29 @@
+stages:
+  - build
+
+variables:
+  GIT_SSL_NO_VERIFY: "true"
+  GIT_DEPTH: "1"
+
+docker:
+  image: docker:latest
+  stage: build
+  tags:
+    - 'docker-build'
+  script:
+    - cp /usr/local/bin/docker-init tini
+    - docker login -u gitlab-ci-token -p ${CI_BUILD_TOKEN} ${CI_REGISTRY} 
+    - docker build -t ${CI_REGISTRY_IMAGE} . 
+    - docker push ${CI_REGISTRY_IMAGE}:latest
+
+#fun:
+#  image: docker:latest
+#  stage: debug
+#  tags:
+#    - 'docker-build'
+#  script:
+#    - echo CI_PROJECT_PATH $CI_PROJECT_PATH
+#    - echo CI_REGISTRY $CI_REGISTRY
+#    - echo CI_REGISTRY_IMAGE  $CI_REGISTRY_IMAGE
+#    - echo CI_PROJECT_NAME $CI_PROJECT_NAME
+#    - echo CI_PROJECT_NAMESPACE $CI_PROJECT_NAMESPACE

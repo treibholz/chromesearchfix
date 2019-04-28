@@ -1,0 +1,11 @@
+[Unit]
+Description=ChromeSearchFix
+
+[Service]
+ExecStart=/home/klaus/git/chromesearchfix/run.sh
+Restart=always
+#Environment=FLASK_APP=search.py
+#Environment=DISPLAY=:0
+
+[Install]
+WantedBy=basic.target

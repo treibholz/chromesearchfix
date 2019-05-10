@@ -67,3 +67,15 @@ Example:
 
     http://localhost:10080/search?q=%s&resolv=false
 
+## use systemd
+
+    # ./enable_user_systemd.sh
+    Created symlink /home/YOUR_USERNAME/.config/systemd/user/basic.target.wants/chromesearchfix.service → /home/YOUR_USERNAME/.config/systemd/user/chromesearchfix.service.
+    ● chromesearchfix.service - ChromeSearchFix
+        Loaded: loaded (/home/YOUR_USERNAME/.config/systemd/user/chromesearchfix.service; enabled; vendor preset: enabled)
+        Active: active (running) since Fri 2019-05-10 16:15:35 CEST; 3ms ago
+     Main PID: 19675 (run.sh)
+       CGroup: /user.slice/user-1000.slice/user@1000.service/chromesearchfix.service
+               ├─19675 /bin/sh /home/YOUR_USERNAME/git/chromesearchfix/run.sh
+               └─19678 /usr/bin/python3 /usr/bin/flask run -p 10080
+

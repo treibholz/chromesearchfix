@@ -2,7 +2,7 @@
 Description=ChromeSearchFix
 
 [Service]
-ExecStart=/home/klaus/git/chromesearchfix/run.sh
+ExecStart=__PWD__/run.sh
 Restart=always
 #Environment=FLASK_APP=search.py
 #Environment=DISPLAY=:0
